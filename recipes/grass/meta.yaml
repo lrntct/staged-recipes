@@ -1,0 +1,95 @@
+{% set name = "grass" %}
+{% set version = "7.8.3" %}
+{% set exec = "grass78" %}
+{% set home = "https://grass.osgeo.org" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: {{ home }}/{{ exec }}/source/{{ name }}-{{ version }}.tar.gz
+  sha256: 25e79a0d513927b4f783a871f4f4bb7cd43c87ab4abd5523348b32411356a95b
+  patches:
+      # - platform.make.in.patch [osx]
+      - patches/platform.make.in-linux.patch [linux]
+      - patches/loader.py.patch
+      # - rules.make.patch [osx]
+      # - rules.make.patch [linux]
+      # - aclocal.m4.patch
+      - patches/configure.patch
+      # - install.make.patch
+      # - module.make.patch [osx]
+      # - shlib.make.patch [osx]
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - make
+    - m4
+    # - pkg-config
+    - bison
+    - flex
+  host:
+    - cairo
+    # - ffmpeg
+    - freetype
+    - fftw
+    # - geos
+    # - giflib
+    # - jpeg
+    - gdal
+    # - libcxxabi
+    # - libcxx
+    # - libiconv
+    # - libnetcdf
+    - libpng
+    - libtiff
+    # - libxml2
+    - openblas
+    # - pandoc
+    - pdal
+    # - pillow
+    # - proj
+    - python >=3.5
+    - six
+    - sqlite
+    - wxpython
+    # - xorg-libx11
+    - zlib
+    - zstd
+  run:
+    - six
+    - numpy
+    - python >=3.5
+    - matplotlib
+    - gdal
+    - wxpython
+
+
+test:
+  commands:
+    - {{ exec }} --help
+    - {{ exec }} --version
+    - {{ exec }} --config
+
+about:
+  home: {{ home }}
+  license: GPL-2.0-or-later
+  license_family: GPL
+  license_file: LICENSE.txt
+  summary: 'Geographic Resources Analysis Support System'
+
+  description: |
+    GRASS GIS is a Geographic Information System used for geospatial data management and analysis,
+    image processing, graphics/map production, spatial modeling, and visualization.
+  doc_url: {{ home }}/documentation/
+  dev_url: https://github.com/OSGeo/grass/
+
+extra:
+  recipe-maintainers:
+    - lrntct
