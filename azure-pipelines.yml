@@ -1,4 +1,7 @@
-trigger: grass
+trigger:
+  branches:
+    include:
+    - grass
 jobs:
   - template: ./.azure-pipelines/azure-pipelines-linux.yml
 
