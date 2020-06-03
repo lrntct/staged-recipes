@@ -1,13 +1,13 @@
 #! /bin/bash
 
-# if [[ $target_platform =~ linux.* ]]; then
-#     export LDFLAGS="$LDFLAGS -Wl,-rpath-link,${PREFIX}/lib"
-# fi
+if [[ $target_platform =~ linux.* ]]; then
+    export LDFLAGS="$LDFLAGS -Wl,-rpath-link,${PREFIX}/lib"
+fi
 
-# export PREFIX=$(python -c 'import sys; print sys.prefix')
-# export PATH=$PREFIX/bin:/usr/bin:/bin:/usr/sbin:/etc:/usr/lib
 
 if [ $(uname) == Darwin ]; then
+  export PREFIX=$(python -c 'import sys; print sys.prefix')
+  export PATH=$PREFIX/bin:/usr/bin:/bin:/usr/sbin:/etc:/usr/lib
   export GRASS_PYTHON=$(which pythonw)
 else
   export GRASS_PYTHON=$(which python)

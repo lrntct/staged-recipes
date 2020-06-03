@@ -8,19 +8,23 @@ package:
   version: {{ version }}
 
 source:
-  url: {{ home }}/{{ exec }}/source/{{ name }}-{{ version }}.tar.gz
-  sha256: 25e79a0d513927b4f783a871f4f4bb7cd43c87ab4abd5523348b32411356a95b
-  patches:
-      # - platform.make.in.patch [osx]
-      - patches/platform.make.in-linux.patch [linux]
-      - patches/loader.py.patch
-      # - rules.make.patch [osx]
-      # - rules.make.patch [linux]
-      # - aclocal.m4.patch
-      - patches/configure.patch
-      # - install.make.patch
-      # - module.make.patch [osx]
-      # - shlib.make.patch [osx]
+  - url: {{ home }}/{{ exec }}/source/{{ name }}-{{ version }}.tar.gz
+    sha256: 25e79a0d513927b4f783a871f4f4bb7cd43c87ab4abd5523348b32411356a95b
+    patches:
+        # - platform.make.in.patch [osx]
+        - patches/platform.make.in-linux.patch [linux]
+        - patches/loader.py.patch
+        # - rules.make.patch [osx]
+        # - rules.make.patch [linux]
+        # - aclocal.m4.patch
+        - patches/configure.patch
+        # - install.make.patch
+        # - module.make.patch [osx]
+        # - shlib.make.patch [osx]
+  # test data
+  # - url: {{ home }}/sampledata/north_carolina/nc_basic_spm_grass7.tar.gz
+  #   sha256: 6dd68818d9a6c181f16e712b68a22a73f38a4294283968c776e42fc33fe6697f
+  #   folder: nc_basic_spm_grass7
 
 build:
   number: 0
@@ -72,10 +76,15 @@ requirements:
 
 
 test:
+  imports:
+    - grass
+  # source_files:
+  #   - nc_basic_spm_grass7
   commands:
     - {{ exec }} --help
     - {{ exec }} --version
     - {{ exec }} --config
+    # - python -m grass.gunittest.main --location nc_basic_spm_grass7 --location-type nc
 
 about:
   home: {{ home }}
