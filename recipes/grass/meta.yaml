@@ -76,8 +76,8 @@ requirements:
 
 
 test:
-  imports:
-    - grass
+  # imports:
+  #   - grass
   # source_files:
   #   - nc_basic_spm_grass7
   commands:
