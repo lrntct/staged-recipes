@@ -86,9 +86,9 @@ if [ $(uname) == Darwin ]; then
 fi
 
 ./configure $CONFIGURE_FLAGS
-make -j4 > log_make.txt
-make -j4 # GDAL_DYNAMIC= > out.txt 2>&1 || (tail -400 out.txt && echo "ERROR in make step" && exit -1)
-make -j4 install
+make -j > log_make.txt
+make -j # GDAL_DYNAMIC= > out.txt 2>&1 || (tail -400 out.txt && echo "ERROR in make step" && exit -1)
+make -j install
 
 # ACTIVATE_DIR=$PREFIX/etc/conda/activate.d
 # DEACTIVATE_DIR=$PREFIX/etc/conda/deactivate.d
